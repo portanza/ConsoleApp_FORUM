@@ -52,10 +52,8 @@ namespace ConsoleApp_FORUM
             string Stringa = "Rhino";
             int Intero = 8;
     
-            C Oggetto_C = new ();
-            List<C> Lista = new ();
-            Lista.Add(Oggetto_C);
 
+            List<C> Lista = new ();
             string? Stringa_Utente;
 
             // Inizio popolamento lista con controllo in coda
