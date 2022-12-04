@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-namespace ForumMcNeel_Italia
+namespace ConsoleApp_FORUM
 {
 
 
@@ -14,30 +14,31 @@ namespace ForumMcNeel_Italia
             Attributo_A = "";
         }
     }
-
     public class B
     {
         public int Attributo_B { get; set; }
 
     }
-      public class C
+    public class C
     {
+        public Tuple<string, int>? Attributo_C { get; set; }
+
         //Crea una tupla per contenere tipi diversi di dati
-        public Tuple<string, int> Metodo_C(string Nome, int Intero)
+        public  Tuple<string, int> Metodo_C(string Nome, int Intero)
         {
+           
             // costruisce un oggetto A e un oggetto B
-            A Oggetto_A = new A();
-            B Oggetto_B = new B();
+            A Oggetto_A = new ();
+            B Oggetto_B = new ();       
 
             //valorizza gli attributi
             Oggetto_A.Attributo_A = Nome;
             Oggetto_B.Attributo_B = Intero;
 
-            //Usa il tipo var per far dedurre al compilatore il tipo da memorizzare.
-            var ValoreDiRitorno = Tuple.Create(Oggetto_A.Attributo_A, Oggetto_B.Attributo_B);
+            //Costruisce il tipo C
+            Attributo_C = Tuple.Create(Oggetto_A.Attributo_A, Oggetto_B.Attributo_B);
 
-            //il metodo ritorna questo valore
-            return ValoreDiRitorno;
+            return Attributo_C;
         }
     }
 
@@ -50,82 +51,82 @@ namespace ForumMcNeel_Italia
             // Inserisce una prima coppia di default: TRIBUTO A RHINOCEROS
             string Stringa = "Rhino";
             int Intero = 8;
-
-            C Oggetto_C = new C();
-            Oggetto_C.Metodo_C(Stringa, Intero);
-
-            List<C> Lista = new List<C>();
+    
+            C Oggetto_C = new ();
+            List<C> Lista = new ();
             Lista.Add(Oggetto_C);
 
-            // Inserisce la stringa
-
             string? Stringa_Utente;
+
+            // Inizio popolamento lista con controllo in coda
             do
             {
-                Stringa_Utente = "";
 
+                // Inserisce la stringa
                 Console.Clear();
-                Console.WriteLine("Inserisci una numero intero:");
+                Console.WriteLine("\tCONSOLE APP - FORUM McNeel ITALIA - RHINOCEROS\n");
+                Console.Write("Inserisci una stringa:\t");
 
                 Stringa_Utente = Console.ReadLine();
 
                 //controllo la stringa inserita
-                if (Stringa_Utente != "q" && Stringa_Utente != "" && Stringa_Utente != null)
+                if (!string.IsNullOrEmpty(Stringa_Utente) && Stringa_Utente!="q")
                 {
                     Stringa = Stringa_Utente;
                 }
-            } while (Stringa_Utente !=  "q");
 
 
+                //Inserisce la stringa e controlla che sia un intero
+                while (!string.IsNullOrEmpty(Stringa_Utente) && Stringa_Utente != "q")
+                {
+                    Console.Clear();
+                    Console.WriteLine("\tCONSOLE APP - FORUM McNeel ITALIA - RHINOCEROS\n");
+                    Console.Write("Inserisci una numero intero:\t");
+                    Stringa_Utente = Console.ReadLine();
+                    if (int.TryParse(Stringa_Utente, out int value))
+                    {
+                        Intero = Convert.ToInt32(Stringa_Utente);
+                        break;
+                    }
+                    else continue;
+                    
+
+                } 
+
+
+
+                // Inserisce l'oggetto di tipo C in lista.
+                Lista.Add(new C());
+
+
+                //tira fuori l ultimo elemento e lo modifica
+                C ultimo = Lista.Last();
+                ultimo.Metodo_C(Stringa, Intero);
+
+            } while (Stringa_Utente != "q");
             
 
 
-
-            //Inserisce l'intero
-
-            do
-            {
-                Stringa_Utente = "";
-
-                Console.Clear();
-                Console.WriteLine("Inserisci una numero intero:");
-
-                Stringa_Utente = Console.ReadLine();
-
-                //controllo la stringa inserita
-                if (Stringa_Utente != "q" && Stringa_Utente != "" && Stringa_Utente != null && Stringa_Utente.)
-                {
-                    if (int.TryParse(Stringa_Utente, out int value))
-                        Intero = Convert.ToInt32(Stringa_Utente);
-                    else
-                    {
-                        Console.WriteLine("Imbecille, ho detto \"Inserisci un interno\"!");
-                    }
-                }
-
-            } while (Stringa_Utente != "q");
-
-            // Inserisce l'oggetto di tipo C in lista.
-            Oggetto_C.Metodo_C(Stringa, Intero);
-            Lista.Add(Oggetto_C);
-
             //Visualizza la lista e restituisce il tempo impiegato
-
-
             Console.Clear();
-            Console.WriteLine("Hai inserito la seguente lista");
+            Console.WriteLine("\tCONSOLE APP - FORUM McNeel ITALIA - RHINOCEROS\n");
+            Console.WriteLine("Hai inserito la seguente lista:\n");
 
             var watch = System.Diagnostics.Stopwatch.StartNew();    
-            foreach (C c in Lista)
+            foreach (C item in Lista)
             {
-                Console.WriteLine($"{Oggetto_C.Metodo_C(Stringa,Intero)}");
+                if (item.Attributo_C!=null)
+                {
+                    Console.WriteLine($"{item.Attributo_C.Item1} -- {item.Attributo_C.Item2}");
+                }
+                                
             }
             watch.Stop();
 
 
             Console.WriteLine();
-            Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms");
-            Console.WriteLine("Usare Rhino è divertente, ciao.")           
+            Console.WriteLine($"Tempo di esecuzione della lista: {watch.ElapsedMilliseconds} ms.\n");
+            Console.WriteLine("Usare Rhino è divertente, ciao.");           
            
         }
     }
