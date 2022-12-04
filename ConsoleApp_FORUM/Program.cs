@@ -55,11 +55,11 @@ namespace ConsoleApp_FORUM
 
             List<C> Lista = new ();
             string? Stringa_Utente;
-
+          
             // Inizio popolamento lista con controllo in coda
             do
             {
-
+                
                 // Inserisce la stringa
                 Console.Clear();
                 Console.WriteLine("\tCONSOLE APP - FORUM McNeel ITALIA - RHINOCEROS\n");
@@ -87,10 +87,7 @@ namespace ConsoleApp_FORUM
                         break;
                     }
                     else continue;
-                    
-
                 } 
-
 
 
                 // Inserisce l'oggetto di tipo C in lista.
@@ -101,11 +98,11 @@ namespace ConsoleApp_FORUM
                 C ultimo = Lista.Last();
                 ultimo.Metodo_C(Stringa, Intero);
 
+                
             } while (Stringa_Utente != "q");
 
-            // assicura che ci sia almeno un elemento
-            C primo = Lista.First();
-            primo.Metodo_C("Forza Rhino", 7);
+            //rimuove l'ultimo oggetto creato dopo l immissione di q
+            Lista.RemoveAt(Lista.Count-1);
 
             //Visualizza la lista e restituisce il tempo impiegato
             Console.Clear();
@@ -115,9 +112,11 @@ namespace ConsoleApp_FORUM
             var watch = System.Diagnostics.Stopwatch.StartNew();    
             foreach (C item in Lista)
             {
+                int ciclo = 0;
                 if (item.Attributo_C!=null)
                 {
-                    Console.WriteLine($"{item.Attributo_C.Item1} -- {item.Attributo_C.Item2}");
+                    ciclo += 1;
+                    Console.WriteLine($"{item.Attributo_C.Item1} -- {item.Attributo_C.Item2} -- Elemento {ciclo}");
                 }
                                 
             }
