@@ -104,8 +104,9 @@ namespace ConsoleApp_FORUM
                 ultimo.Metodo_C(Stringa, Intero);
 
             } while (Stringa_Utente != "q");
-            
 
+            C primo = Lista.First();
+            primo.Metodo_C("Forza Rhino", 7);
 
             //Visualizza la lista e restituisce il tempo impiegato
             Console.Clear();
