@@ -74,7 +74,7 @@ namespace ConsoleApp_FORUM
                 }
 
 
-                //Inserisce la stringa e controlla che sia un intero
+                // Controlla che sia un intero e lo memorizza, diversamente continua a riproporre l'inserimento ammesso che si immetta q
                 while (!string.IsNullOrEmpty(Stringa_Utente) && Stringa_Utente != "q")
                 {
                     Console.Clear();
@@ -103,6 +103,7 @@ namespace ConsoleApp_FORUM
 
             } while (Stringa_Utente != "q");
 
+            // assicura che ci sia almeno un elemento
             C primo = Lista.First();
             primo.Metodo_C("Forza Rhino", 7);
 
